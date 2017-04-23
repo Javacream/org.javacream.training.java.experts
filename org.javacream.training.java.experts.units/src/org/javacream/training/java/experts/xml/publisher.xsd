@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.javacream.org/publisher"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.javacream.org/publisher">
+	<element name="publisher" type="tns:publisherType"></element>
+	<element name="book" type="tns:bookType"></element>
+
+	<complexType name="publisherType">
+		<sequence>
+			<element name="book" type="tns:bookType" maxOccurs="unbounded"
+				minOccurs="1"></element>
+		</sequence>
+		<attribute name="name" type="string"></attribute>
+		<attribute name="city" type="string"></attribute>
+	</complexType>
+	<complexType name="bookType">
+		<sequence>
+			<element name="isbn" type="string" nillable="false"></element>
+			<element name="title" type="string" nillable="false"></element>
+			<element name="price">
+				<simpleType>
+					<restriction base="double">
+						<minExclusive value="0"></minExclusive>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+</schema>

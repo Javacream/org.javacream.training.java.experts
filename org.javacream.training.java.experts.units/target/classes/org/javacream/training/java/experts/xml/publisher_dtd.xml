@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<!DOCTYPE publisher SYSTEM "publisher.dtd">
+
+<publisher name="Springer" city="Berlin">
+	<book>
+		<isbn>ISBN1</isbn>
+		<title>Java in Action</title>
+		<price>19.99</price>
+	</book>
+	<book>
+		<isbn>ISBN2</isbn>
+		<title>Apache Commons</title>
+		<price>9.99</price>
+	</book>
+	<book>
+		<isbn>ISBN3</isbn>
+		<title>Spring Framework</title>
+		<price>25.99</price>
+	</book>
+</publisher>
