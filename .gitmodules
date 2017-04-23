@@ -1,0 +1,6 @@
+[submodule "units"]
+	path = units
+	url = https://github.com/Javacream/org.javacream.training.java.experts.git
+[submodule "application"]
+	path = application
+	url = https://github.com/Javacream/org.javacream.training.java.experts.git
