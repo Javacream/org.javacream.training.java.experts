@@ -54,12 +54,12 @@ public class BookBuilder {
 
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Book build() throws BookException {
 		try {
 
-			Class bookClass = Class.forName(bookTypes.getProperty(type));
-			Book book = (Book) bookClass.newInstance();
+			@SuppressWarnings("unchecked")
+			Class<? extends Book> bookClass = (Class<? extends Book>) Class.forName(bookTypes.getProperty(type));
+			Book book = bookClass.newInstance();
 			book.setIsbn(isbn);
 			book.setPrice(price);
 			book.setTitle(title);

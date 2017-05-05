@@ -27,11 +27,12 @@ public class TracingAspect implements InvocationHandler {
 			throw e;
 		}
 	}
-	public static Object createAspects(Object toDecorate){
+	@SuppressWarnings("unchecked")
+	public static <T> T createAspects(T toDecorate){
 		ClassLoader classLoader = TracingAspect.class.getClassLoader();
 		Class<?>[] interfacesToImplement = toDecorate.getClass().getInterfaces();
 		TracingAspect tracingAspect = new TracingAspect();
 		tracingAspect.setDelegate(toDecorate);
-		return Proxy.newProxyInstance(classLoader, interfacesToImplement, tracingAspect);
+		return (T) Proxy.newProxyInstance(classLoader, interfacesToImplement, tracingAspect);
 	}
 }

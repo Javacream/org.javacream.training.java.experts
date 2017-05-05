@@ -16,7 +16,6 @@ public class SerializerAspect implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		String methodName = method.getName();
 		try {
 			Object result = method.invoke(delegate, SerializationUtils.clone(args));
 			return SerializationUtils.clone((Serializable)result);
@@ -24,15 +23,15 @@ public class SerializerAspect implements InvocationHandler {
 			if (e instanceof InvocationTargetException) {
 				e = ((InvocationTargetException) e).getTargetException();
 			}
-			System.out.println("throwing from " + methodName);
 			throw SerializationUtils.clone(e);
 		}
 	}
-	public static Object createAspects(Object toDecorate){
+	@SuppressWarnings("unchecked")
+	public static <T> T createAspects(T toDecorate){
 		ClassLoader classLoader = SerializerAspect.class.getClassLoader();
 		Class<?>[] interfacesToImplement = toDecorate.getClass().getInterfaces();
 		SerializerAspect aspect = new SerializerAspect();
 		aspect.setDelegate(toDecorate);
-		return Proxy.newProxyInstance(classLoader, interfacesToImplement, aspect);
+		return (T) Proxy.newProxyInstance(classLoader, interfacesToImplement, aspect);
 	}
 }

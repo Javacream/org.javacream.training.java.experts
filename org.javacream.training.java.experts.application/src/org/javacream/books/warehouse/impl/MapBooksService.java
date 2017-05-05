@@ -10,6 +10,7 @@ import org.javacream.books.warehouse.api.BookBuilder;
 import org.javacream.books.warehouse.api.BookException;
 import org.javacream.books.warehouse.api.BookException.BookExceptionType;
 import org.javacream.books.warehouse.api.BooksService;
+import org.javacream.util.notification.NotificationSupport;
 
 /**
  * @author Dr. Rainer Sawitzki
@@ -20,6 +21,7 @@ import org.javacream.books.warehouse.api.BooksService;
 
 public class MapBooksService implements BooksService {
 
+	
 	public MapBooksService() {
 
 	}
@@ -28,17 +30,28 @@ public class MapBooksService implements BooksService {
 
 	private BookBuilder bookBuilder;
 
+	private NotificationSupport<Book> notificationSupport;
 	{
 		bookBuilder = new BookBuilder();
 		books = new HashMap<>();
+		notificationSupport = new NotificationSupport<>();
 	}
 
+
+	public NotificationSupport<Book> getNotificationSupport() {
+		return notificationSupport;
+	}
+
+	public void setNotificationSupport(NotificationSupport<Book> notificationSupport) {
+		this.notificationSupport = notificationSupport;
+	}
 
 	@Override
 	public String newBook(String type, String title, double price, Map<String, Object> options) throws BookException {
 		String isbn = "ISBN:" + Math.random();
 		Book book = bookBuilder.setType(type).setIsbn(isbn).setPrice(price).setTitle(title).setOptions(options).build();
 		books.put(isbn, book);
+		notificationSupport.fireNotification("newBook", book);
 		return isbn;
 	}
 
@@ -60,15 +73,20 @@ public class MapBooksService implements BooksService {
 		value.setTitle(book.getTitle());
 		value.setPrice(book.getPrice());
 		value.setAvailable(book.isAvailable());
+		notificationSupport.fireNotification("updateBook", book);
 		return value;
 	}
 
 	@Override
 	public void deleteBookByIsbn(String isbn) throws BookException {
-		Object result = books.remove(isbn);
-		if (result == null) {
+		Book book = books.remove(isbn);
+		if (book == null) {
 			throw new BookException(BookException.BookExceptionType.NOT_DELETED, isbn);
+		}else{
+			notificationSupport.fireNotification("deleteBook", book);
+
 		}
+		
 	}
 
 	@Override
