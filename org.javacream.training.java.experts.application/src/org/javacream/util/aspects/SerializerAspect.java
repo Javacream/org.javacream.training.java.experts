@@ -31,8 +31,8 @@ public class SerializerAspect implements InvocationHandler {
 	public static Object createAspects(Object toDecorate){
 		ClassLoader classLoader = SerializerAspect.class.getClassLoader();
 		Class<?>[] interfacesToImplement = toDecorate.getClass().getInterfaces();
-		SerializerAspect tracingAspect = new SerializerAspect();
-		tracingAspect.setDelegate(toDecorate);
-		return Proxy.newProxyInstance(classLoader, interfacesToImplement, tracingAspect);
+		SerializerAspect aspect = new SerializerAspect();
+		aspect.setDelegate(toDecorate);
+		return Proxy.newProxyInstance(classLoader, interfacesToImplement, aspect);
 	}
 }
