@@ -7,7 +7,12 @@ import static org.junit.Assert.fail;
 import java.util.Collection;
 import java.util.HashMap;
 
+import org.javacream.books.warehouse.api.types.Comic;
+import org.javacream.books.warehouse.api.types.SchoolBook;
+import org.javacream.books.warehouse.api.types.SpecialistBook;
 import org.javacream.books.warehouse.impl.MapBooksService;
+import org.javacream.util.aspects.SerializerAspect;
+import org.javacream.util.aspects.TracingAspect;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,9 +32,9 @@ public class BooksServiceTest {
 
 	@Before
 	public void init() {
-		booksService = new MapBooksService();
+		booksService = (BooksService) TracingAspect.createAspects(SerializerAspect.createAspects(new MapBooksService()));
 		try {
-			ISBN = booksService.newBook("specialist", "Test", 9.99, new HashMap<>());
+			ISBN = booksService.newBook("comic", "Test", 9.99, new HashMap<>());
 		} catch (BookException be) {
 			throw new RuntimeException(be.getMessage());
 		}
@@ -95,6 +100,51 @@ public class BooksServiceTest {
 		booksService.updateBook(book);
 	}
 
+	@Test
+	public void checkDeepCopy() throws BookException {
+		Book book = booksService.findBookByIsbn(ISBN);
+		Book book2 = booksService.findBookByIsbn(ISBN);
+		Assert.assertFalse(book == book2);
+
+	}
+
+
+	@Test
+	public void createSchoolBook() throws BookException {
+		HashMap<String, Object> options = new HashMap<String, Object>();
+		options.put("subject", "Physics");
+		options.put("year", 10);
+		String isbn = booksService.newBook("school", "TEST", 19.99, options);
+		Book book = booksService.findBookByIsbn(isbn);
+		Assert.assertTrue(book.getClass() == SchoolBook.class);
+
+	}
+
+	@Test
+	public void createComic() throws BookException {
+		HashMap<String, Object> options = new HashMap<String, Object>();
+		options.put("hero", "Superman");
+		String isbn = booksService.newBook("comic", "TEST", 19.99, options);
+		Book book = booksService.findBookByIsbn(isbn);
+		Assert.assertTrue(book.getClass() == Comic.class);
+
+	}
+
+	@Test
+	public void createSpecialistBook() throws BookException {
+		HashMap<String, Object> options = new HashMap<String, Object>();
+		options.put("topic", "Very Special");
+		String isbn = booksService.newBook("specialist", "TEST", 19.99, options);
+		Book book = booksService.findBookByIsbn(isbn);
+		Assert.assertTrue(book.getClass() == SpecialistBook.class);
+
+	}
+
+	@Test(expected = BookException.class)
+	public void createBookFailsNullOptions() throws BookException {
+		booksService.newBook("comic", "TEST", 19.99, null);
+
+	}
 
 	private void doTest(BooksService booksService) {
 

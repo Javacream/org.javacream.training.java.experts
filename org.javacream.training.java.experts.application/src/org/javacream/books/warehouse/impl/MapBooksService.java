@@ -6,10 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.javacream.books.warehouse.api.Book;
+import org.javacream.books.warehouse.api.BookBuilder;
 import org.javacream.books.warehouse.api.BookException;
 import org.javacream.books.warehouse.api.BookException.BookExceptionType;
 import org.javacream.books.warehouse.api.BooksService;
 
+/**
+ * @author Dr. Rainer Sawitzki
+ * @company Javacream
+ * @mailto rainer.sawitzki@javacream.org
+ * 
+ */
 
 public class MapBooksService implements BooksService {
 
@@ -19,7 +26,10 @@ public class MapBooksService implements BooksService {
 
 	private Map<String, Book> books;
 
+	private BookBuilder bookBuilder;
+
 	{
+		bookBuilder = new BookBuilder();
 		books = new HashMap<>();
 	}
 
@@ -27,11 +37,7 @@ public class MapBooksService implements BooksService {
 	@Override
 	public String newBook(String type, String title, double price, Map<String, Object> options) throws BookException {
 		String isbn = "ISBN:" + Math.random();
-		@SuppressWarnings("serial")
-		Book book = new Book(){};
-		book.setIsbn(isbn);
-		book.setTitle(title);
-		book.setPrice(price);
+		Book book = bookBuilder.setType(type).setIsbn(isbn).setPrice(price).setTitle(title).setOptions(options).build();
 		books.put(isbn, book);
 		return isbn;
 	}
