@@ -2,34 +2,17 @@ package org.javacream.books.warehouse.api.types;
 
 import org.javacream.books.warehouse.api.Book;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@ToString(callSuper=true, includeFieldNames=true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class SchoolBook extends Book{
 
-	public SchoolBook() {
-		super();
-	}
-	public SchoolBook(String isbn, String title, double price, boolean available, int year, String subject) {
-		super(isbn, title, price, available);
-		this.year = year;
-		this.subject = subject;
-	}
 	private static final long serialVersionUID = 1L;
 
 	private int year;
 	private String subject;
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	@Override
-	public String toString() {
-		return "SchoolBook [year=" + year + ", subject=" + subject + ", toString()=" + super.toString() + "]";
-	}
 }

@@ -2,6 +2,10 @@ package org.javacream.books.warehouse.api;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 
  * @author Dr. Rainer Sawitzki
@@ -9,19 +13,10 @@ import java.io.Serializable;
  * @mailto training@rainer-sawitzki.de
  * 
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public abstract class Book implements Serializable {
-	public Book() {
-		super();
-	}
-
-	public Book(String isbn, String title, double price, boolean available) {
-		super();
-		this.isbn = isbn;
-		this.title = title;
-		this.price = price;
-		this.available = available;
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	private String isbn;
@@ -31,84 +26,5 @@ public abstract class Book implements Serializable {
 	private double price;
 
 	private boolean available;
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Book other = (Book) obj;
-		if (available != other.available)
-			return false;
-		if (isbn == null) {
-			if (other.isbn != null)
-				return false;
-		} else if (!isbn.equals(other.isbn))
-			return false;
-		if (Double.doubleToLongBits(price) != Double
-				.doubleToLongBits(other.price))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (available ? 1231 : 1237);
-		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(price);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "Book [isbn=" + isbn + ", title=" + title + ", price=" + price + ", available=" + available + "]";
-	}
-
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-	
 
 }

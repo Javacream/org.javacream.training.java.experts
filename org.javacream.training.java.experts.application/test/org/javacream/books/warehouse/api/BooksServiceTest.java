@@ -12,6 +12,7 @@ import org.javacream.books.warehouse.api.types.SchoolBook;
 import org.javacream.books.warehouse.api.types.SpecialistBook;
 import org.javacream.books.warehouse.impl.MapBooksService;
 import org.javacream.util.aspects.SerializerAspect;
+import org.javacream.util.aspects.TracingAspect;
 import org.javacream.util.notification.Notification;
 import org.javacream.util.notification.NotificationListener;
 import org.junit.Assert;
@@ -35,13 +36,14 @@ public class BooksServiceTest {
 	public void init() {
 		MapBooksService mapBooksService = new MapBooksService();
 		mapBooksService.getNotificationSupport().addNotificationListener(new NotificationListener<Book>() {
-			
+
 			@Override
 			public void handle(Notification<Book> notification) {
-				System.out.println("Handling notification on book " + notification.getData() );
+				System.out.println("Handling notification on book " + notification.getData());
 			}
 		});
 		booksService = SerializerAspect.createAspects(mapBooksService);
+		booksService = TracingAspect.createAspects(booksService);
 		try {
 			ISBN = booksService.newBook("comic", "Test", 9.99, new HashMap<>());
 		} catch (BookException be) {
@@ -116,7 +118,6 @@ public class BooksServiceTest {
 		Assert.assertFalse(book == book2);
 
 	}
-
 
 	@Test
 	public void createSchoolBook() throws BookException {

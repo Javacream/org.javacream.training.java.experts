@@ -18,7 +18,6 @@ import org.javacream.util.notification.NotificationSupport;
  * @mailto rainer.sawitzki@javacream.org
  * 
  */
-
 public class MapBooksService implements BooksService {
 
 	
