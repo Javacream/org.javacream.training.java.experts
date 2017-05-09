@@ -1,0 +1,14 @@
+<!-- library.dtd -->
+
+<!ELEMENT publisher (book*)>
+<!ELEMENT book (isbn, title, price)>
+<!ELEMENT isbn (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+
+<!ATTLIST publisher city CDATA #REQUIRED>
+<!ATTLIST publisher name CDATA #REQUIRED>
+
+
+
+

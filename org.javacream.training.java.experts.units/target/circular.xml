@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_121" class="java.beans.XMLDecoder">
+ <object class="org.javacream.training.java.experts.xml.serialization.Class1" id="Class10">
+  <void property="class2">
+   <object class="org.javacream.training.java.experts.xml.serialization.Class2">
+    <void property="class1">
+     <object idref="Class10"/>
+    </void>
+    <void property="description">
+     <string>class2 description</string>
+    </void>
+   </object>
+  </void>
+  <void property="description">
+   <string>class1 description</string>
+  </void>
+ </object>
+</java>

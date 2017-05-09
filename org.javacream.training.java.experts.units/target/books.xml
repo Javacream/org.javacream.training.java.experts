@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_121" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="org.javacream.training.java.experts.xml.Book">
+    <void property="isbn">
+     <string>ISBN1</string>
+    </void>
+    <void property="price">
+     <double>19.99</double>
+    </void>
+    <void property="title">
+     <string>Java</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="org.javacream.training.java.experts.xml.Book">
+    <void property="isbn">
+     <string>ISBN2</string>
+    </void>
+    <void property="price">
+     <double>9.99</double>
+    </void>
+    <void property="title">
+     <string>Xml</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="org.javacream.training.java.experts.xml.Book">
+    <void property="isbn">
+     <string>ISBN1</string>
+    </void>
+    <void property="price">
+     <double>25.99</double>
+    </void>
+    <void property="title">
+     <string>Spring</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
