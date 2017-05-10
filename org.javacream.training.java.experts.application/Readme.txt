@@ -12,3 +12,6 @@ Generics
 Annotations
 	Lombok
 	Traced
+	
+Functional
+	BookPrinter und BookPrinterStrategies
